@@ -1,6 +1,6 @@
 #In this code basic cleanign and transformations are carried out for further utilization of the code.
 #Source File: job_postings.csv                          //contains 10k records obatined by web API endpoint
-#Destination File: transformed_job_postings.csv         //contains 10k records transformed
+#Destination File: transformed_job_postings.csv         //contains 10k records transformed and cleaned
 
 import pandas as pd
 import re

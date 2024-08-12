@@ -1,3 +1,9 @@
+#In this code, I am extracting first 2000 records.In order to create 3 types of nodes, JobTitle, Company and Skills respectively.
+# For this creation , Skills are split into each columns. for eg :[Skill1, Skill2] -> Skill1(col1), Skill2(col2) ...
+# This type of split in source is required to cerate non - redundant skill nodes, so as to connect 'skill1' node to all the jobs needing it.  
+#Source File: transformed_skills.csv                        //contains 10k records transformed and cleaned + skills are transformed
+#Destination File: extractjobpostings.csv                   //contains 2k records transformed and cleaned + skills are transformed
+
 import pandas as pd
 
 # Define file paths

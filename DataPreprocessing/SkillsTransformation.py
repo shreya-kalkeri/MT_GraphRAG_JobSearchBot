@@ -1,3 +1,10 @@
+#In this code, the skills are transformed to create 3 types of nodes, JobTitle, Company and Skills respectively.
+# For this creation , Skills are split into each columns. for eg :[Skill1, Skill2] -> Skill1(col1), Skill2(col2) ...
+# This type of split in source is required to cerate non - redundant skill nodes, so as to connect 'skill1' node to all the jobs needing it. 
+#In this code basic cleanign and transformations are carried out for further utilization of the code.
+#Source File: transformed_job_postings.csv                         //contains 10k records transformed and cleaned
+#Destination File: transformed_skills.csv                          //contains 10k records transformed and cleaned + skills are transformed
+
 import pandas as pd
 import re
 

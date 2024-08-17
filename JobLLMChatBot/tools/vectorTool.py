@@ -20,7 +20,7 @@ RETURN
     score,
     {
         JobTitle: node.JobTitle,
-        JobId: node.JobId,
+        JobId: node.JobID,
         Source: node.JobPostingURL,
         Location: node.Locations,
         Company: [ (c:Company)-[:OFFERS]->(node) | c.name ],

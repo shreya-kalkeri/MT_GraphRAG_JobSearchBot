@@ -41,6 +41,13 @@ RETURN j.JobTitle, c.name , j.JobPostingURL, j.Locations
 MATCH (c:Company)-[:OFFERS]->(j:JobTitle {JobTitle: "Full Stack Developer"})
 RETURN j.JobTitle, c.name , j.JobPostingURL, c.AboutCompany
 ```
+
+4. I have skills in data analysis using Python. What job titles are available for me, and which companies are offering them?
+```
+MATCH (c:Company)-[:OFFERS]->(j)
+MATCH (j:JobTitle {JobTitle: "Data Analyst"})-[:REQUIRES]->(s:Skill {name: "Python"})
+RETURN j.JobTitle, c.name
+```
 """
 
 cypher_prompt = PromptTemplate.from_template(CYPHER_GENERATION_TEMPLATE)

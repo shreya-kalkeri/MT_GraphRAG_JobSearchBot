@@ -11,6 +11,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from utils import get_session_id
 from tools.vectorTool import get_job_skills
 from tools.cypherTool import graphCypher_qa
+import time
 
 # Create a job chat chain
 chat_prompt = ChatPromptTemplate.from_messages(
@@ -120,7 +121,14 @@ chat_agent = RunnableWithMessageHistory(
 # Create a handler function to call the Conversational agent inorder to respond to the user query
 
 def generate_response(user_input):
+
+    start_time = int(time.time() * 1000)
+
     response = chat_agent.invoke(
         {"input": user_input},
         {"configurable": {"session_id": get_session_id()}},)
+    
+    end_time = int(time.time() * 1000)
+    print(f"{end_time - start_time} milliseconds")
+
     return response['output']

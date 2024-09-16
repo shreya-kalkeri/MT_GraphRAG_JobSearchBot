@@ -1,0 +1,34 @@
+// Load only the first 50 rows from the CSV file
+LOAD CSV WITH HEADERS FROM 'file:///extractjobpostings.csv' AS row
+WITH row
+LIMIT 2000
+
+// Create or merge JobTitle node with Job ID as the unique identifier and JobTitle as a property
+MERGE (j:JobTitle {JobID: row.`Job ID`})
+SET j.JobTitle = trim(row.JobTitle),  
+    j.name = trim(toLower(row.JobTitle)),  
+    j.JobPostingURL = row.JobPostingURL, 
+    j.Locations = row.Locations
+
+// Create or merge Company node
+MERGE (c:Company {name: trim(toLower(row.CompanyName))})
+SET c.CompanyTagline = row.CompanyTagline,
+    c.CompanyFounded = row.CompanyFounded,
+    c.EmployeeCount = row.EmployeeCount,
+    c.AboutCompany = row.AboutCompany
+
+// Create relationship between Company and JobTitle
+MERGE (c)-[o:OFFERS]->(j)
+
+// Handle multiple skills from individual columns
+WITH row, j, c  // Carry forward variables
+UNWIND [row.Skill1, row.Skill2, row.Skill3, row.Skill4, row.Skill5, row.Skill6, row.Skill7, row.Skill8, row.Skill9, row.Skill10] AS skill
+WITH j, c, trim(skill) AS skill WHERE skill IS NOT NULL AND skill <> ''
+
+// Create or merge Skill nodes and relationships
+MERGE (s:Skill {name: skill})
+MERGE (j)-[:REQUIRES]->(s)
+MERGE (s)-[:NEEDED_BY]->(c)
+
+// Return relevant data for inspection
+RETURN c, j, s;

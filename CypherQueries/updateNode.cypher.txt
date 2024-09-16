@@ -1,0 +1,14 @@
+//This query makes sure the update is processed in batches so that eager operator issue does not arise 
+
+WITH 0 AS offset
+CALL {
+  WITH offset
+  LOAD CSV WITH HEADERS FROM 'file:///jobid_skills_extract.csv' AS row
+  MATCH (j:JobTitle {JobID: row.JobID})
+  SET j.Skills = row.Skills
+  RETURN count(*) AS processedCount
+  LIMIT 500
+}
+WITH processedCount, offset + processedCount AS newOffset
+WITH newOffset WHERE newOffset > 0
+RETURN 'Continue Processing';

@@ -1,0 +1,8 @@
+//This procedure converts JSON list to Cypher List for Cypher querying 
+
+LOAD CSV WITH HEADERS
+FROM 'file:///openai-embeddings.csv' AS row
+MATCH (j:JobTitle {JobId: row.JobId})
+WITH j, apoc.convert.fromJsonList(row.Embedding) AS embedding
+SET j.SkillEmbedding = embedding
+RETURN count(*)

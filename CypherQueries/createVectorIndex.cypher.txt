@@ -1,0 +1,7 @@
+CREATE VECTOR INDEX JobSkills IF NOT EXISTS
+FOR (j:JobTitle)
+ON j.SkillEmbedding
+OPTIONS {indexConfig: {
+ `vector.dimensions`: 1536,
+ `vector.similarity_function`: 'cosine'
+}}

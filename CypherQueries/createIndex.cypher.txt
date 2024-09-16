@@ -1,0 +1,32 @@
+// Create an index on JobTitle by JobID
+CREATE INDEX FOR (j:JobTitle) ON (j.JobID);
+
+// Create an index on JobTitle by name
+CREATE INDEX FOR (j:JobTitle) ON (j.name);
+
+// Create an index on JobTitle by JobTitle
+CREATE INDEX FOR (j:JobTitle) ON (j.JobTitle);
+
+// Create an index on JobTitle by JobPostingURL
+CREATE INDEX FOR (j:JobTitle) ON (j.JobPostingURL);
+
+// Create an index on JobTitle by Locations
+CREATE INDEX FOR (j:JobTitle) ON (j.Locations);
+
+// Create an index on Company by name
+CREATE INDEX FOR (c:Company) ON (c.name);
+
+// Create an index on Company by CompanyTagline
+CREATE INDEX FOR (c:Company) ON (c.CompanyTagline);
+
+// Create an index on Company by CompanyFounded
+CREATE INDEX FOR (c:Company) ON (c.CompanyFounded);
+
+// Create an index on Company by EmployeeCount
+CREATE INDEX FOR (c:Company) ON (c.EmployeeCount);
+
+// Create an index on Company by AboutCompany
+CREATE INDEX FOR (c:Company) ON (c.AboutCompany);
+
+// Create an index on Skill by name
+CREATE INDEX FOR (s:Skill) ON (s.name);

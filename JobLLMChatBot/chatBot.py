@@ -2,6 +2,7 @@ import streamlit as st
 from utils import write_message
 from agent import generate_response
 from langchain_core.exceptions import OutputParserException
+from tools.score import calculate_compatibility_score
 
 #Configure the default settings in the JobGPT Landing Page
 st.set_page_config("Job GPT", page_icon="💼")
@@ -44,9 +45,14 @@ for message in st.session_state.messages:
     write_message(message['role'], message['content'], save=False)
 
 #Handle any user input
-if question := st.chat_input("What is up?"):
+if question := st.chat_input("Job Search"):
     # Display user message in chat message container
     write_message('user', question)
 
     # Generate a response
     handle_submit(question)
+
+if score_question := st.chat_input("Add your skills, experience, or any job-related question to get 'Job Compatibility Score':"):
+    write_message('user', score_question)
+    output = calculate_compatibility_score(score_question)
+    st.write(f"Your job compatibility score is: {output[0]['output']} \n {output[1]}")
